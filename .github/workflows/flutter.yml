@@ -1,0 +1,25 @@
+name: Flutter Workflow
+
+on:
+  push:
+    branches: [ "feature/*" ]
+  pull_request:
+    branches: [ "develop", "main", "feature/*" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.0'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+        
+      - name: Run unit tests 
+        run: flutter test --coverage

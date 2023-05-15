@@ -1,30 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:vitae/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('MyApp test', (WidgetTester tester) async {
+    // Build MyApp and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that the app has a title of 'Vitae'.
+    expect(find.text('Vitae'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Verify that the app has a MyHomePage widget.
+    expect(find.byType(MyHomePage), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('MyHomePage test', (WidgetTester tester) async {
+    // Build MyHomePage and trigger a frame.
+    await tester
+        .pumpWidget(const MaterialApp(home: MyHomePage(title: 'Test Title')));
+
+    // Verify that the app has a title of 'Test Title'.
+    expect(find.text('Test Title'), findsOneWidget);
+
+    // Verify that the app has three Text widgets with the specified styles.
+    expect(find.text('Location'), findsOneWidget);
+    expect(find.text('Battery'), findsOneWidget);
+    expect(find.text('Status'), findsOneWidget);
   });
 }
