@@ -95,9 +95,6 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'beta'
       
-      - name: Setup MSVC Build Tools
-        uses: microsoft/setup-msvc-build-tools@v1.0.1
-      
       - name: Install dependencies
         run: flutter pub get
 
