@@ -1,10 +1,11 @@
-name: Flutter Workflow
+name: Flutter CI/CD
 
 on:
   push:
     branches: [ "feature/*" ]
   pull_request:
     branches: [ "develop", "main", "feature/*" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Static analysis
+        run: flutter analyze
+
+      - name: Build APK
+        run: flutter build apk
         
-      - name: Run unit tests 
+      - name: Run tests 
         run: flutter test --coverage
