@@ -45,6 +45,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'stable'
+          architecture: x64  
 
       - name: Install dependencies
         run: flutter pub get
@@ -53,7 +54,7 @@ jobs:
         run: flutter analyze
 
       - name: Build ios App
-        run: flutter build ios
+        run: flutter build ios --release --no-codesign
         
       - name: Run tests 
         run: flutter test --coverage
@@ -92,7 +93,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'stable'
+          channel: 'beta'
       
       - name: Setup MSVC Build Tools
         uses: microsoft/setup-msvc-build-tools@v1.0.1
@@ -102,6 +103,9 @@ jobs:
 
       - name: Static analysis
         run: flutter analyze
+        
+      - name: Flutter config for windows
+        run: flutter config --enable-windows-desktop
 
       - name: Build EXE
         run: flutter build windows
@@ -126,7 +130,14 @@ jobs:
 
       - name: Static analysis
         run: flutter analyze
-
+        
+      - run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          
+      - name: Flutter configs for linux
+        run: flutter config --enable-linux-desktop     
+      
       - name: Build Linux desktop application
         run: flutter build linux
         
