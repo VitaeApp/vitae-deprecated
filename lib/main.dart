@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:vitae/phone.dart';
+import 'package:vitae/verify.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeFirebase();
+  
+  runApp(MaterialApp(
+    initialRoute: 'phone',
+    debugShowCheckedModeBanner: false,
+    routes: {
+      'phone': (context) => const MyPhone(),
+      'verify': (context) => const MyVerify()
+    },
+  ));
 }
+
+Future<void> initializeFirebase() async {
+  await Firebase.initializeApp();
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
